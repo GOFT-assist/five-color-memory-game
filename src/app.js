@@ -61,6 +61,13 @@ function renderBoard() {
   `).join('');
 }
 
+function resetColorPads() {
+  board.querySelectorAll('.color-pad').forEach((pad) => {
+    pad.classList.remove('active', 'pressed');
+    pad.blur();
+  });
+}
+
 function render() {
   message.textContent = state.message;
   level.textContent = String(state.level);
@@ -86,12 +93,13 @@ function wait(ms) {
 }
 
 async function flashPad(colorId) {
+  resetColorPads();
   const pad = board.querySelector(`[data-color="${colorId}"]`);
   if (!pad) return;
   pad.classList.add('active');
   playTone(colorId, 0.28);
   await wait(SHOW_DELAY_MS);
-  pad.classList.remove('active');
+  resetColorPads();
   await wait(GAP_MS);
 }
 
@@ -120,11 +128,9 @@ function handleColorTap(event) {
   if (!button || isAnimating || state.status !== 'input') return;
   unlockAudio();
   const colorId = button.dataset.color;
+  resetColorPads();
   button.classList.add('pressed');
-  window.setTimeout(() => {
-    button.classList.remove('pressed');
-    button.blur();
-  }, 160);
+  window.setTimeout(resetColorPads, 180);
   playTone(colorId);
   state = registerInput(state, colorId, Math.random);
   saveBest(state.bestLevel);

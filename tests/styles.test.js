@@ -24,5 +24,7 @@ test('colors only pop while active or pressed, then reset after taps', () => {
   const popRule = css.match(/\.color-pad\.active,[\s\S]*?box-shadow:[^}]*\}/)?.[0] ?? '';
   assert.match(popRule, /\.color-pad\.active,\s*\n\.color-pad\.pressed\s*\{/);
   assert.doesNotMatch(popRule, /:hover|:focus-visible/);
-  assert.match(app, /button\.classList\.remove\('pressed'\);\s*\n\s*button\.blur\(\);/);
+  assert.match(app, /function resetColorPads\(\) \{[\s\S]*?classList\.remove\('active', 'pressed'\);[\s\S]*?pad\.blur\(\);[\s\S]*?\}/);
+  assert.match(app, /resetColorPads\(\);\s*\n\s*button\.classList\.add\('pressed'\);\s*\n\s*window\.setTimeout\(resetColorPads, 180\);/);
+  assert.match(app, /await wait\(SHOW_DELAY_MS\);\s*\n\s*resetColorPads\(\);/);
 });
