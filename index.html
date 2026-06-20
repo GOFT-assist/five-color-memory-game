@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="A five-color pattern memory web game.">
+    <title>Five Color Memory Game</title>
+    <link rel="stylesheet" href="./src/styles.css">
+    <script type="module" src="./src/app.js"></script>
+  </head>
+  <body data-status="idle">
+    <main class="game-shell" aria-labelledby="game-title">
+      <section class="hero">
+        <p class="eyebrow">Five color challenge</p>
+        <h1 id="game-title">Memory Game</h1>
+        <p class="instructions">Watch the five-color pattern, then tap the colors back in the same order. Each round adds one more color.</p>
+      </section>
+
+      <section class="panel" aria-label="Game board">
+        <div class="stats" aria-label="Game stats">
+          <div class="stat"><span>Level</span><strong data-level>1</strong></div>
+          <div class="stat"><span>Score</span><strong data-score>0</strong></div>
+          <div class="stat"><span>Best</span><strong data-best>0</strong></div>
+          <div class="stat"><span>Progress</span><strong data-progress>0/0</strong></div>
+        </div>
+
+        <p class="message" data-message role="status" aria-live="polite">Tap Start to play.</p>
+
+        <div class="board" data-board aria-label="Five color buttons"></div>
+
+        <div class="controls">
+          <button class="primary" type="button" data-start>Start game</button>
+          <button class="secondary" type="button" data-replay disabled>Replay pattern</button>
+        </div>
+
+        <ol class="sequence-list" data-sequence-list aria-label="Sequence progress"></ol>
+      </section>
+    </main>
+  </body>
+</html>
