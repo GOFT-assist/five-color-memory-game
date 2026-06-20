@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const css = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
+const app = readFileSync(new URL('../src/app.js', import.meta.url), 'utf8');
 
 test('color pads do not use a white outline when focused, active, or pressed', () => {
   assert.doesNotMatch(css, /\.color-pad[\s\S]{0,220}outline:\s*4px\s+solid\s+var\(--ring\)/);
@@ -17,4 +18,11 @@ test('active and pressed colors pop with their own color glow instead of white b
   assert.match(css, /\.color-pad\.purple\s*\{\s*--pop:\s*rgba\(168, 85, 247/);
   assert.match(css, /box-shadow:[^;]*var\(--pop\)/);
   assert.doesNotMatch(css, /0 0 28px rgba\(255, 255, 255/);
+});
+
+test('colors only pop while active or pressed, then reset after taps', () => {
+  const popRule = css.match(/\.color-pad\.active,[\s\S]*?box-shadow:[^}]*\}/)?.[0] ?? '';
+  assert.match(popRule, /\.color-pad\.active,\s*\n\.color-pad\.pressed\s*\{/);
+  assert.doesNotMatch(popRule, /:hover|:focus-visible/);
+  assert.match(app, /button\.classList\.remove\('pressed'\);\s*\n\s*button\.blur\(\);/);
 });
