@@ -145,14 +145,23 @@ h1 {
 .color-pad.purple { background: linear-gradient(150deg, #c084fc, #9333ea); }
 
 .color-pad:hover,
+.color-pad:focus-visible {
+  outline: 4px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.color-pad.active,
+.color-pad.pressed {
+  outline: none;
+}
+
+.color-pad:hover,
 .color-pad:focus-visible,
 .color-pad.active,
 .color-pad.pressed {
-  outline: 4px solid var(--ring);
-  outline-offset: 3px;
   filter: brightness(1.18) saturate(1.18);
   transform: translateY(-4px) scale(1.03);
-  box-shadow: inset 0 -8px 0 rgba(0, 0, 0, 0.14), 0 22px 32px rgba(2, 6, 23, 0.42);
+  box-shadow: inset 0 -8px 0 rgba(0, 0, 0, 0.14), 0 22px 32px rgba(2, 6, 23, 0.42), 0 0 28px rgba(255, 255, 255, 0.22);
 }
 
 body[data-status="showing"] .color-pad {
