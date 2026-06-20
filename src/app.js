@@ -129,8 +129,11 @@ function handleColorTap(event) {
   unlockAudio();
   const colorId = button.dataset.color;
   resetColorPads();
+  button.classList.remove('pressed');
+  void button.offsetWidth;
   button.classList.add('pressed');
-  window.setTimeout(resetColorPads, 180);
+  button.addEventListener('animationend', resetColorPads, { once: true });
+  window.setTimeout(resetColorPads, 220);
   playTone(colorId);
   state = registerInput(state, colorId, Math.random);
   saveBest(state.bestLevel);
