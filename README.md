@@ -2,6 +2,8 @@
 
 A small static web app where players watch a five-color pattern and repeat it back. Each successful round adds one more color.
 
+Live app: https://goft-assist.github.io/five-color-memory-game/
+
 ## Features
 
 - Five color buttons: red, blue, green, yellow, and purple
